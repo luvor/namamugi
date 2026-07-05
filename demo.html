@@ -25,7 +25,8 @@
 *{box-sizing:border-box;margin:0;padding:0}
 html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
 body{background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:16.5px;line-height:1.72;
-  -webkit-font-smoothing:antialiased;overflow-x:hidden;padding-bottom:66px}
+  -webkit-font-smoothing:antialiased;overflow-x:hidden;padding-bottom:56px;
+  touch-action:manipulation}/* touch-action: kills double-tap zoom (esp. 5 rapid taps on logo) */
 
 /* bilingual */
 [data-jp]{display:none}
@@ -102,7 +103,11 @@ section{padding:54px 0}
 .usps{display:grid;grid-template-columns:1fr;gap:14px;margin-top:4px}
 @media(min-width:560px){.usps{grid-template-columns:1fr 1fr}}
 .usp{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:22px 20px}
-.usp .k{font-family:var(--serif);color:var(--accent);font-size:17px;margin-bottom:10px}
+.ic{width:1.05em;height:1.05em;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;
+  stroke-linejoin:round;vertical-align:-.15em;flex-shrink:0}
+.usp-ic{display:inline-grid;place-items:center;width:44px;height:44px;border-radius:50%;
+  background:var(--accent-soft);color:var(--accent);margin-bottom:14px}
+.usp-ic .ic{width:22px;height:22px;stroke-width:1.6}
 .usp h3{font-family:var(--serif);font-size:19px;font-weight:600;margin-bottom:6px}
 .usp p{color:var(--muted);font-size:14.5px}
 
@@ -179,13 +184,13 @@ section{padding:54px 0}
 .access a{color:var(--accent)}
 
 footer{border-top:1px solid var(--line);padding:38px 0 44px;margin-top:16px}
-footer .fbrand{font-family:var(--serif);font-size:22px;font-weight:600}
+footer .fbrand{font-family:var(--serif);font-size:22px;font-weight:600;display:flex;align-items:center;gap:10px}
 footer .fnote{color:var(--muted);font-size:12.5px;margin-top:16px}
 
 /* sticky call */
 .callbar{position:fixed;left:0;right:0;bottom:0;z-index:150;background:var(--accent);display:flex;
-  align-items:center;justify-content:center;gap:9px;height:58px;text-decoration:none;color:#FBF3E6;
-  font-weight:600;font-size:16px;font-family:var(--sans);padding-bottom:env(safe-area-inset-bottom)}
+  align-items:center;justify-content:center;gap:8px;height:48px;text-decoration:none;color:#FBF3E6;
+  font-weight:600;font-size:14.5px;font-family:var(--sans);padding-bottom:env(safe-area-inset-bottom)}
 .callbar .num{font-variant-numeric:tabular-nums}
 @media(min-width:720px){.callbar{border-radius:14px 14px 0 0;max-width:420px;left:50%;transform:translateX(-50%)}}
 
@@ -256,7 +261,7 @@ html.lang-jp .pslide h3{line-height:1.4}
 .afield label{display:block;font-size:10px;letter-spacing:.06em;text-transform:uppercase;color:var(--faint);
   margin-bottom:5px}
 .afield input{width:100%;background:var(--bg);border:1px solid var(--line);color:var(--ink);border-radius:9px;
-  padding:10px 8px;font-family:var(--sans);font-size:14px;font-variant-numeric:tabular-nums}
+  padding:10px 8px;font-family:var(--sans);font-size:16px;font-variant-numeric:tabular-nums}/* 16px: no iOS focus-zoom */
 .afield input:focus{outline:none;border-color:var(--accent)}
 .actl{display:flex;flex-wrap:wrap;gap:12px;align-items:center;margin-top:14px;grid-column:1/-1}
 .availtog{display:inline-flex;align-items:center;gap:9px;font-size:14px;font-weight:600;cursor:pointer;
@@ -276,16 +281,23 @@ html.lang-jp .pslide h3{line-height:1.4}
 </head>
 <body>
 <div class="flash" id="flash"></div>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><!-- line-icon sprite -->
+ <symbol id="ic-phone" viewBox="0 0 24 24"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.9.7 2.8a2 2 0 0 1-.4 2.1L8.1 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/></symbol>
+ <symbol id="ic-card" viewBox="0 0 24 24"><rect x="2" y="5" width="20" height="14" rx="2.5"/><path d="M2 10h20"/><path d="M5 3.5 19 20.5"/></symbol>
+ <symbol id="ic-cash" viewBox="0 0 24 24"><rect x="2" y="6" width="20" height="12" rx="2.5"/><circle cx="12" cy="12" r="2.5"/><path d="M5.5 9v6M18.5 9v6"/></symbol>
+ <symbol id="ic-live" viewBox="0 0 24 24"><path d="M21 4v6h-6"/><path d="M3 20v-6h6"/><path d="M3.5 9a9 9 0 0 1 14.9-3.4L21 8"/><path d="M20.5 15a9 9 0 0 1-14.9 3.4L3 16"/></symbol>
+ <symbol id="ic-calendar" viewBox="0 0 24 24"><rect x="3" y="4.5" width="18" height="17" rx="2.5"/><path d="M16 2.5v4M8 2.5v4M3 9.5h18"/></symbol>
+</svg>
 
 <header>
   <div class="bar">
     <div class="brand" onclick="brandTap()">
       <span class="seal">手</span>
-      <span class="wm">Handy Rent-a-car<small>ハンディ・レンタカー · 横浜鶴見</small></span>
+      <span class="wm">Handy<small>ハンディ・レンタカー · 横浜鶴見</small></span>
     </div>
     <div class="spacer"></div>
     <button class="langbtn" id="lang" onclick="toggleLang()"><b>EN</b> · 日本語</button>
-    <a class="callmini" href="tel:0455846636">📞 <span class="num">045-584-6636</span></a>
+    <a class="callmini" href="tel:0455846636"><svg class="ic"><use href="#ic-phone"/></svg> <span class="num">045-584-6636</span></a>
   </div>
 </header>
 
@@ -295,7 +307,7 @@ html.lang-jp .pslide h3{line-height:1.4}
     <div class="eyebrow"><span class="jp" data-en>For residents</span><span class="jp" data-jp>在住の方へ</span>
       <span data-en>Yokohama · Tsurumi</span><span data-jp>横浜市鶴見区</span></div>
     <h1><span data-en>Rent a van.<br>No paperwork.<br>Cash is fine.</span><span data-jp>バンを借りる。<br>面倒な手続きなし。<br>現金でどうぞ。</span></h1>
-    <p class="sub"><span data-en>English support, <b>no credit card</b>, no guarantor. Just your Japanese licence and a recent bill — drive the same day.</span><span data-jp>英語対応、<b>クレジットカード不要</b>、保証人も不要。日本の運転免許と最近の請求書があれば、その日のうちに。</span></p>
+    <p class="sub"><span data-en>English support · <b>no credit card</b> · no guarantor.<br>Licence + a recent bill — drive today.</span><span data-jp>英語対応・<b>カード不要</b>・保証人不要。<br>免許証＋請求書で、その日のうちに。</span></p>
     <div class="herocta">
       <a class="btn primary" href="#book"><span data-en>Find your van ↓</span><span data-jp>車を選ぶ ↓</span></a>
       <a class="btn ghost" href="tel:0455846636"><span data-en>Call now</span><span data-jp>電話する</span></a>
@@ -312,14 +324,14 @@ html.lang-jp .pslide h3{line-height:1.4}
     <h2><span data-en>Simple, honest, and quick</span><span data-jp>シンプル・正直・すぐ乗れる</span></h2>
   </div>
   <div class="usps">
-    <div class="usp"><div class="k">壱</div><h3><span data-en>No credit book</span><span data-jp>クレジット不要</span></h3>
-      <p><span data-en>Just your licence and one recent utility bill. No guarantor, no deposit, no card.</span><span data-jp>免許証と最近の公共料金の請求書だけ。保証人・敷金・カード不要。</span></p></div>
-    <div class="usp"><div class="k">弐</div><h3><span data-en>Cash welcome</span><span data-jp>現金でOK</span></h3>
-      <p><span data-en>Pay in cash — no Japanese credit card needed to rent from us.</span><span data-jp>お支払いは現金で。日本のクレジットカードは要りません。</span></p></div>
-    <div class="usp"><div class="k">参</div><h3><span data-en>Live availability</span><span data-jp>リアルタイム空車</span></h3>
-      <p><span data-en>What you see is free right now — we update the fleet ourselves, no stale info.</span><span data-jp>表示中の車は今すぐ使えます。在庫は店が直接更新、古い情報はありません。</span></p></div>
-    <div class="usp"><div class="k">四</div><h3><span data-en>Day, week or month</span><span data-jp>日・週・月ぎめ</span></h3>
-      <p><span data-en>Rent for a day or long-term. The longer you rent, the cheaper per day.</span><span data-jp>1日から長期まで。長く借りるほど1日あたりお得。</span></p></div>
+    <div class="usp"><span class="usp-ic"><svg class="ic"><use href="#ic-card"/></svg></span><h3><span data-en>No credit book</span><span data-jp>クレジット不要</span></h3>
+      <p><span data-en>Licence + one recent bill. No guarantor, no deposit.</span><span data-jp>免許証＋請求書だけ。保証人・敷金なし。</span></p></div>
+    <div class="usp"><span class="usp-ic"><svg class="ic"><use href="#ic-cash"/></svg></span><h3><span data-en>Cash welcome</span><span data-jp>現金でOK</span></h3>
+      <p><span data-en>Pay cash. No Japanese card needed.</span><span data-jp>現金でOK。日本のカード不要。</span></p></div>
+    <div class="usp"><span class="usp-ic"><svg class="ic"><use href="#ic-live"/></svg></span><h3><span data-en>Live availability</span><span data-jp>リアルタイム空車</span></h3>
+      <p><span data-en>What you see is free right now.</span><span data-jp>表示中の車は今すぐ使えます。</span></p></div>
+    <div class="usp"><span class="usp-ic"><svg class="ic"><use href="#ic-calendar"/></svg></span><h3><span data-en>Day, week or month</span><span data-jp>日・週・月ぎめ</span></h3>
+      <p><span data-en>A day to a month. Longer = cheaper.</span><span data-jp>1日〜1ヶ月。長いほどお得。</span></p></div>
   </div>
 </section>
 
@@ -347,7 +359,7 @@ html.lang-jp .pslide h3{line-height:1.4}
     </div>
     <div class="flowstep">
       <div class="steplab"><span class="n">4</span><h3><span data-en>Reserve</span><span data-jp>予約する</span></h3></div>
-      <a class="btn primary block" style="margin-bottom:11px" href="tel:0455846636"><span data-en>📞 Call to reserve — 045-584-6636</span><span data-jp>📞 電話で予約 — 045-584-6636</span></a>
+      <a class="btn primary block" style="margin-bottom:11px" href="tel:0455846636"><svg class="ic"><use href="#ic-phone"/></svg> <span data-en>Call to reserve — 045-584-6636</span><span data-jp>電話で予約 — 045-584-6636</span></a>
       <a class="btn ghost block" href="https://www.kurumakoujyou.co.jp/otoiawase" target="_blank" rel="noopener"><span data-en>Send an inquiry instead</span><span data-jp>お問い合わせフォーム</span></a>
     </div>
   </div>
@@ -402,15 +414,14 @@ html.lang-jp .pslide h3{line-height:1.4}
 
 <footer>
   <div class="wrap">
-    <div class="fbrand">Handy Rent-a-car</div>
+    <div class="fbrand"><span class="seal">手</span> Handy</div>
     <p class="sect-sub" style="margin-top:8px"><span data-en>Budget van & car rental in Yokohama — now English-friendly.</span><span data-jp>横浜の格安レンタカー。英語対応をはじめました。</span></p>
-    <a class="btn primary" href="tel:0455846636" style="margin-top:14px"><span data-en>📞 Call 045-584-6636</span><span data-jp>📞 電話 045-584-6636</span></a>
     <p class="fnote"><span data-en>Please note: a valid Japanese driving licence is required. International driving permits are not accepted at this time.</span><span data-jp>※ 日本国内で有効な運転免許証が必要です。国際免許でのご利用は現在承っておりません。</span></p>
     <p class="fnote" style="opacity:.6">Demo redesign · data from kurumakoujyou.co.jp · not the live site</p>
   </div>
 </footer>
 
-<a class="callbar" href="tel:0455846636">📞 <span data-en>Call to reserve</span><span data-jp>電話で予約</span> · <span class="num">045-584-6636</span></a>
+<a class="callbar" href="tel:0455846636"><svg class="ic"><use href="#ic-phone"/></svg> <span data-en>Call to reserve</span><span data-jp>電話で予約</span> · <span class="num">045-584-6636</span></a>
 
 <!-- PITCH overlay (opened from hidden owner menu) -->
 <div class="sheet" id="pitch">
