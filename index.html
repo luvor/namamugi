@@ -296,7 +296,7 @@ html.lang-jp .pslide h3{line-height:1.4}
       <span class="wm">Handy<small>ハンディ・レンタカー · 横浜鶴見</small></span>
     </div>
     <div class="spacer"></div>
-    <button class="langbtn" id="lang" onclick="toggleLang()"><b>EN</b> · 日本語</button>
+    <button class="langbtn" id="lang" onclick="toggleLang()" aria-label="Switch language">日本語</button>
     <a class="callmini" href="tel:0455846636"><svg class="ic"><use href="#ic-phone"/></svg> <span class="num">045-584-6636</span></a>
   </div>
 </header>
@@ -359,7 +359,7 @@ html.lang-jp .pslide h3{line-height:1.4}
     </div>
     <div class="flowstep">
       <div class="steplab"><span class="n">4</span><h3><span data-en>Reserve</span><span data-jp>予約する</span></h3></div>
-      <a class="btn primary block" style="margin-bottom:11px" href="tel:0455846636"><svg class="ic"><use href="#ic-phone"/></svg> <span data-en>Call to reserve — 045-584-6636</span><span data-jp>電話で予約 — 045-584-6636</span></a>
+      <a class="btn primary block" style="margin-bottom:11px" href="tel:0455846636"><svg class="ic"><use href="#ic-phone"/></svg> <span data-en>Call to reserve</span><span data-jp>電話で予約</span></a>
       <a class="btn ghost block" href="https://www.kurumakoujyou.co.jp/otoiawase" target="_blank" rel="noopener"><span data-en>Send an inquiry instead</span><span data-jp>お問い合わせフォーム</span></a>
     </div>
   </div>
@@ -614,7 +614,7 @@ function toggleLang(){
   LANG=LANG==='en'?'jp':'en';
   document.documentElement.classList.toggle('lang-jp',LANG==='jp');
   document.documentElement.lang=LANG==='jp'?'ja':'en';
-  document.getElementById('lang').innerHTML=LANG==='en'?'<b>EN</b> · 日本語':'EN · <b>日本語</b>';
+  document.getElementById('lang').innerHTML=LANG==='en'?'日本語':'EN';
   renderAll();
 }
 
